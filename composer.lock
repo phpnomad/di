@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9cc22badc10b506c997a6c3c04c1c16e",
+    "content-hash": "67d67c40c14b8ed11cdf186cdd69a233",
     "packages": [],
     "packages-dev": [
         {
@@ -803,6 +803,55 @@
                 "chat": "https://matrix.to/#/#project-phoenix:matrix.org"
             },
             "time": "2023-10-05T10:03:49+00:00"
+        },
+        {
+            "name": "phoenix/utils",
+            "version": "dev-phx-38/core-repository-setup",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:rooted-phoenix/utils.git",
+                "reference": "6222ef73e53ed58cb9226fdd99772feadf51debd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rooted-phoenix/utils/zipball/6222ef73e53ed58cb9226fdd99772feadf51debd",
+                "reference": "6222ef73e53ed58cb9226fdd99772feadf51debd",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phoenix/tests": "^0.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Phoenix\\Utils\\": "lib/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Phoenix\\Utils\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "php-cs-fixer": [
+                    "php-cs-fixer fix"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Standiford",
+                    "email": "alex@standiford.us"
+                }
+            ],
+            "homepage": "https://github.com/phoenix/core",
+            "support": {
+                "source": "https://github.com/rooted-phoenix/utils/tree/phx-38/core-repository-setup",
+                "issues": "https://github.com/rooted-phoenix/utils/issues"
+            },
+            "time": "2023-10-05T22:56:35+00:00"
         },
         {
             "name": "phpstan/extension-installer",
@@ -3842,7 +3891,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "phoenix/utils": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
