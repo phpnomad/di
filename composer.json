@@ -1,5 +1,5 @@
 {
-    "name": "phoenix/repository",
+    "name": "phoenix/di",
     "description": "",
     "type": "library",
     "homepage": "https://github.com/phoenix/core",
@@ -16,12 +16,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Phoenix\\Core\\": "lib/"
+            "Phoenix\\Di\\": "lib/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Phoenix\\Core\\Tests\\": "tests/"
+            "Phoenix\\Di\\Tests\\": "tests/"
         }
     },
     "authors": [
