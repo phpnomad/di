@@ -15,13 +15,21 @@ final class Container
     /**
      * Associate an abstract class or interface with a concrete class
      *
-     * @param class-string $abstract
      * @param class-string $concrete
+     * @param class-string $abstract
+     * @param class-string ...$abstracts Additional abstract classes to bind to this instance.
      * @return void
      */
-    public function bind(string $abstract, string $concrete): Container
+    public function bind(string $concrete, string $abstract, string ...$abstracts): Container
     {
-        $this->bindings[$abstract] = $concrete;
+        $instance = null;
+
+        foreach(Arr::merge([$abstract], $abstracts) as $abstractClass){
+            $this->bindings[$abstractClass] = $concrete;
+
+            // This ensures all bound abstracts will return the same instance
+            $this->instances[$abstractClass] = &$instance;
+        }
 
         return $this;
     }
@@ -54,6 +62,11 @@ final class Container
     protected function instantiate(string $abstract)
     {
         $concrete = $this->bindings[$abstract] ?? $abstract;
+
+        // If we already have an instance, return that
+        if ($this->instances[$abstract]) {
+            return $this->instances[$abstract];
+        }
 
         try {
             $object = $this->resolve($concrete);
