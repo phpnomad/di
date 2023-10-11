@@ -8,7 +8,7 @@ abstract class Facade
 {
     protected Container $container;
 
-    public function __construct(Container $container)
+    final public function __construct(Container $container)
     {
         $this->container = $container;
     }
