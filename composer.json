@@ -36,7 +36,7 @@
     ],
     "require-dev": {
         "phoenix/tests": "^0.1.0",
-        "phoenix/utils": "dev-phx-38/core-repository-setup"
+        "phoenix/utils": "dev-main"
     },
     "config": {
         "allow-plugins": {

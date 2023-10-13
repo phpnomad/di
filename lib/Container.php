@@ -2,7 +2,7 @@
 
 namespace Phoenix\Di;
 
-use Phoenix\Core\Exceptions\DiException;
+use Phoenix\Di\Exceptions\DiException;
 use Phoenix\Utils\Helpers\Arr;
 use ReflectionClass;
 use ReflectionException;
@@ -24,7 +24,7 @@ final class Container
     {
         $instance = null;
 
-        foreach(Arr::merge([$abstract], $abstracts) as $abstractClass){
+        foreach (Arr::merge([$abstract], $abstracts) as $abstractClass) {
             $this->bindings[$abstractClass] = $concrete;
 
             // This ensures all bound abstracts will return the same instance
@@ -108,5 +108,16 @@ final class Container
         }
 
         return $reflectionClass->newInstanceArgs($dependencies);
+    }
+
+    /**
+     * Gets instanced classes from of an array of abstract classes.
+     *
+     * @param string ...$abstracts
+     * @return array
+     */
+    public function hydrate(string ...$abstracts): array
+    {
+        return Arr::map($abstracts, [$this, 'get']);
     }
 }
