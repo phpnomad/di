@@ -6,8 +6,7 @@ use Phoenix\Di\Exceptions\DiException;
 use Phoenix\Utils\Helpers\Arr;
 use ReflectionClass;
 use ReflectionException;
-
-final class Container
+class Container
 {
     private array $bindings = [];
     private array $instances = [];
