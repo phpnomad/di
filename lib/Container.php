@@ -8,7 +8,14 @@ use ReflectionClass;
 use ReflectionException;
 class Container
 {
+    /**
+     * @var array<string, string>
+     */
     private array $bindings = [];
+
+    /**
+     * @var array<null|object>
+     */
     private array $instances = [];
 
     /**
@@ -17,13 +24,15 @@ class Container
      * @param class-string $concrete
      * @param class-string $abstract
      * @param class-string ...$abstracts Additional abstract classes to bind to this instance.
-     * @return void
+     * @return Container
      */
     public function bind(string $concrete, string $abstract, string ...$abstracts): Container
     {
         $instance = null;
+        /** @var array<string, class-string> $abstracts */
+        $abstracts = Arr::merge([$abstract], $abstracts);
 
-        foreach (Arr::merge([$abstract], $abstracts) as $abstractClass) {
+        foreach ($abstracts as $abstractClass) {
             $this->bindings[$abstractClass] = $concrete;
 
             // This ensures all bound abstracts will return the same instance
@@ -44,7 +53,10 @@ class Container
     public function get(string $abstract): object
     {
         try {
-            return Arr::get($this->instances, $abstract, $this->instantiate($abstract));
+            /** @var T $result */
+            $result = Arr::get($this->instances, $abstract, $this->instantiate($abstract));
+
+            return $result;
         } catch (ReflectionException $e) {
             throw new DiException('Failed to get instance from the provided abstract.', 0, $e);
         }
@@ -107,16 +119,5 @@ class Container
         }
 
         return $reflectionClass->newInstanceArgs($dependencies);
-    }
-
-    /**
-     * Gets instanced classes from of an array of abstract classes.
-     *
-     * @param string ...$abstracts
-     * @return array
-     */
-    public function hydrate(string ...$abstracts): array
-    {
-        return Arr::map($abstracts, [$this, 'get']);
     }
 }
