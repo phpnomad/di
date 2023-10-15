@@ -75,7 +75,7 @@ class Container
         $concrete = $this->bindings[$abstract] ?? $abstract;
 
         // If we already have an instance, return that
-        if ($this->instances[$abstract]) {
+        if (isset($this->instances[$abstract])) {
             return $this->instances[$abstract];
         }
 
