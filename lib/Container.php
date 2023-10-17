@@ -6,6 +6,8 @@ use Phoenix\Di\Exceptions\DiException;
 use Phoenix\Utils\Helpers\Arr;
 use ReflectionClass;
 use ReflectionException;
+use ReflectionNamedType;
+
 class Container
 {
     /**
@@ -110,9 +112,9 @@ class Container
 
         $dependencies = [];
         foreach ($constructorParams as $param) {
-            $paramClass = $param->getClass();
-            if ($paramClass) {
-                $dependencies[] = $this->get($paramClass->getName());
+            $paramType = $param->getType();
+            if (!$paramType->isBuiltin() && $paramType instanceof ReflectionNamedType) {
+                $dependencies[] = $this->get($paramType->getName());
             } else {
                 $dependencies[] = $param;
             }
