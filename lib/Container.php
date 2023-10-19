@@ -84,7 +84,7 @@ class Container
         try {
             $object = $this->resolve($concrete);
         } catch (ReflectionException $e) {
-            throw new DiException('Could not instantiate the provided class', 0, $e);
+            throw new DiException('Could not instantiate the provided class ' . $abstract, 0, $e);
         }
 
         $this->instances[$abstract] = $object;
