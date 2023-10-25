@@ -3,6 +3,7 @@
 namespace Phoenix\Di;
 
 use Phoenix\Di\Exceptions\DiException;
+use Phoenix\Di\Interfaces\CanProvideConcreteInstance;
 use Phoenix\Utils\Helpers\Arr;
 use ReflectionClass;
 use ReflectionException;
@@ -81,8 +82,14 @@ class Container
             return $this->instances[$abstract];
         }
 
+        //TODO: OPTIMIZE THIS BY MAKING IT POSSIBLE TO CACHE THE INSTANCES.
+
         try {
-            $object = $this->resolve($concrete);
+            $object = $concrete instanceof CanProvideConcreteInstance ? $concrete->setContainer($this)->provideConcreteInstance() : $this->resolve($concrete);
+
+            if (!$object instanceof $abstract) {
+                throw new DiException('The provided instance for ' . $abstract . ' Is not an instance of the abstraction', 0);
+            }
         } catch (ReflectionException $e) {
             throw new DiException('Could not instantiate the provided class ' . $abstract, 0, $e);
         }
