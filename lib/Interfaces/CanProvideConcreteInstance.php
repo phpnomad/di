@@ -4,7 +4,7 @@ namespace Phoenix\Di\Interfaces;
 
 use Phoenix\Di\Exceptions\DiException;
 
-interface CanProvideConcreteInstance extends CanSetContainer
+interface CanProvideConcreteInstance
 {
     /**
      * @return object
