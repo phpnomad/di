@@ -1,8 +1,8 @@
 {
-    "name": "phoenix/di",
+    "name": "phpnomad/di",
     "description": "",
     "type": "library",
-    "homepage": "https://github.com/phoenix/core",
+    "homepage": "https://github.com/phpnomad/core",
     "readme": "README.md",
     "license": "MIT",
     "scripts": {
@@ -11,21 +11,21 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/rooted-phoenix/tests.git"
+            "url": "https://github.com/phpnomad/tests.git"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/rooted-phoenix/utils.git"
+            "url": "https://github.com/phpnomad/utils.git"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Phoenix\\Di\\": "lib/"
+            "PHPNomad\\Di\\": "lib/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Phoenix\\Di\\Tests\\": "tests/"
+            "PHPNomad\\Di\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -35,8 +35,8 @@
         }
     ],
     "require-dev": {
-        "phoenix/tests": "^0.1.0",
-        "phoenix/utils": "dev-main"
+        "phpnomad/tests": "^0.1.0",
+        "phpnomad/utils": "dev-main"
     },
     "config": {
         "allow-plugins": {

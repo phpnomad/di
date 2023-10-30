@@ -1,8 +1,8 @@
 <?php
 
-namespace Phoenix\Di\Interfaces;
+namespace PHPNomad\Di\Interfaces;
 
-use Phoenix\Di\Container;
+use PHPNomad\Di\Container;
 
 interface CanSetContainer
 {

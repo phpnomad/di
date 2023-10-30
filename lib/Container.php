@@ -1,13 +1,15 @@
 <?php
 
-namespace Phoenix\Di;
+namespace PHPNomad\Di;
 
-use Phoenix\Di\Exceptions\DiException;
-use Phoenix\Di\Interfaces\CanProvideConcreteInstance;
-use Phoenix\Utils\Helpers\Arr;
+use Mockery\Exception;
+use PHPNomad\Di\Exceptions\DiException;
+use PHPNomad\Di\Interfaces\CanProvideConcreteInstance;
+use PHPNomad\Utils\Helpers\Arr;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
+use Throwable;
 
 class Container
 {
@@ -57,7 +59,11 @@ class Container
     {
         try {
             /** @var T $result */
-            $result = Arr::get($this->instances, $abstract, $this->instantiate($abstract));
+            $result = Arr::get($this->instances, $abstract);
+
+            if(is_null($result)){
+                $result = $this->instantiate($abstract);
+            }
 
             return $result;
         } catch (ReflectionException $e) {
@@ -77,15 +83,10 @@ class Container
     {
         $concrete = $this->bindings[$abstract] ?? $abstract;
 
-        // If we already have an instance, return that
-        if (isset($this->instances[$abstract])) {
-            return $this->instances[$abstract];
-        }
-
-        //TODO: OPTIMIZE THIS BY MAKING IT POSSIBLE TO CACHE THE INSTANCES.
+        //TODO: OPTIMIZE THIS BY MAKING IT POSSIBLE TO CACHE THE INSTANCES BETWEEN REQUESTS.
 
         try {
-            $object = $concrete instanceof CanProvideConcreteInstance ? $concrete->setContainer($this)->provideConcreteInstance() : $this->resolve($concrete);
+            $object = $this->resolve($concrete);
 
             if (!$object instanceof $abstract) {
                 throw new DiException('The provided instance for ' . $abstract . ' Is not an instance of the abstraction', 0);
@@ -112,7 +113,11 @@ class Container
         $reflectionClass = new ReflectionClass($concrete);
 
         if (!$reflectionClass->getConstructor()) {
-            return new $concrete();
+            try {
+                return new $concrete();
+            } catch (Throwable $e) {
+                throw new DiException('Failed creating instance ' . $concrete . ':' . $e->getMessage(), 0, $e);
+            }
         }
 
         $constructorParams = $reflectionClass->getConstructor()->getParameters();

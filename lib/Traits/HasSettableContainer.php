@@ -1,8 +1,8 @@
 <?php
 
-namespace Phoenix\Di\Traits;
+namespace PHPNomad\Di\Traits;
 
-use Phoenix\Di\Container;
+use PHPNomad\Di\Container;
 
 trait HasSettableContainer
 {

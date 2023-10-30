@@ -1,6 +1,6 @@
 <?php
 
-namespace Phoenix\Di\Exceptions;
+namespace PHPNomad\Di\Exceptions;
 
 use Exception;
 
