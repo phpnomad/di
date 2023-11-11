@@ -2,9 +2,7 @@
 
 namespace PHPNomad\Di;
 
-use Mockery\Exception;
 use PHPNomad\Di\Exceptions\DiException;
-use PHPNomad\Di\Interfaces\CanProvideConcreteInstance;
 use PHPNomad\Utils\Helpers\Arr;
 use ReflectionClass;
 use ReflectionException;
