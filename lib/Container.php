@@ -36,10 +36,12 @@ class Container
         $abstracts = Arr::merge([$abstract], $abstracts);
 
         foreach ($abstracts as $abstractClass) {
-            $this->bindings[$abstractClass] = $concrete;
+            if(!isset($this->bindings[$abstractClass])) {
+                $this->bindings[$abstractClass] = $concrete;
 
-            // This ensures all bound abstracts will return the same instance
-            $this->instances[$abstractClass] = &$instance;
+                // This ensures all bound abstracts will return the same instance
+                $this->instances[$abstractClass] = &$instance;
+            }
         }
 
         return $this;
