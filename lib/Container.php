@@ -111,6 +111,11 @@ class Container
     protected function resolve(string $concrete)
     {
         $reflectionClass = new ReflectionClass($concrete);
+
+        if($reflectionClass->isInterface()){
+            throw new DiException('Failed creating instance from interface ' . $concrete . '. Usually this happens when you either forget to bind the instance to a concrete, or the container has not yet bound the concrete instance when this was requested.');
+        }
+
         $constructor = $reflectionClass->getConstructor();
         if (!$constructor) {
             try {
