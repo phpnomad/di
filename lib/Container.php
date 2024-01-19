@@ -84,7 +84,6 @@ class Container
         $concrete = $this->bindings[$abstract] ?? $abstract;
 
         //TODO: OPTIMIZE THIS BY MAKING IT POSSIBLE TO CACHE THE INSTANCES BETWEEN REQUESTS.
-
         try {
             $object = $this->resolve($concrete);
 
