@@ -22,14 +22,14 @@ class Container
     private array $instances = [];
 
     /**
-     * Associate an abstract class or interface with a concrete class
+     * Associate an abstract class or interface with a concrete class.
      *
      * @param class-string $concrete
      * @param class-string $abstract
      * @param class-string ...$abstracts Additional abstract classes to bind to this instance.
      * @return Container
      */
-    public function bind(string $concrete, string $abstract, string ...$abstracts): Container
+    public function bindSingleton(string $concrete, string $abstract, string ...$abstracts): Container
     {
         $instance = null;
         /** @var array<string, class-string> $abstracts */
@@ -43,6 +43,20 @@ class Container
                 $this->instances[$abstractClass] = &$instance;
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Binds an instance using a factory.
+     *
+     * @param string $abstract
+     * @param callable $factory
+     * @return $this
+     */
+    public function bindSingletonFromFactory(string $abstract, callable $factory): Container
+    {
+        $this->bindings[$abstract] = $factory;
 
         return $this;
     }
@@ -85,7 +99,11 @@ class Container
 
         //TODO: OPTIMIZE THIS BY MAKING IT POSSIBLE TO CACHE THE INSTANCES BETWEEN REQUESTS.
         try {
-            $object = $this->resolve($concrete);
+            if(is_callable($concrete)){
+                $object = $concrete();
+            }else {
+                $object = $this->resolve($concrete);
+            }
 
             if (!$object instanceof $abstract) {
                 throw new DiException('The provided instance for ' . $abstract . ' Is not an instance of the abstraction', 0);
