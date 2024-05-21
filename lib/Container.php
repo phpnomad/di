@@ -109,7 +109,7 @@ class Container
                 throw new DiException('The provided instance for ' . $abstract . ' Is not an instance of the abstraction', 0);
             }
         } catch (ReflectionException $e) {
-            throw new DiException('Could not instantiate the provided class ' . $abstract . ' Using ' . $concrete, 0, $e);
+            throw new DiException('Could not instantiate the provided class ' . $concrete . ' Using ' . $abstract, 0, $e);
         }
 
         $this->instances[$abstract] = $object;
