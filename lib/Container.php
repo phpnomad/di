@@ -3,13 +3,14 @@
 namespace PHPNomad\Di;
 
 use PHPNomad\Di\Exceptions\DiException;
+use PHPNomad\Di\Interfaces\InstanceProvider;
 use PHPNomad\Utils\Helpers\Arr;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
 use Throwable;
 
-class Container
+class Container implements InstanceProvider
 {
     /**
      * @var array<string, string>
