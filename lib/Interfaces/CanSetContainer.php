@@ -2,13 +2,11 @@
 
 namespace PHPNomad\Di\Interfaces;
 
-use PHPNomad\Di\Container;
-
 interface CanSetContainer
 {
     /**
-     * @param Container $container
+     * @param InstanceProvider $container
      * @return $this
      */
-    public function setContainer(Container $container);
+    public function setContainer(InstanceProvider $container);
 }

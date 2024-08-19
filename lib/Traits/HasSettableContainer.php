@@ -3,10 +3,11 @@
 namespace PHPNomad\Di\Traits;
 
 use PHPNomad\Di\Container;
+use PHPNomad\Di\Interfaces\InstanceProvider;
 
 trait HasSettableContainer
 {
-    protected Container $container;
+    protected InstanceProvider $container;
 
     /**
      * @param Container $container
