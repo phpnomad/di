@@ -2,7 +2,6 @@
 
 namespace PHPNomad\Di\Traits;
 
-use PHPNomad\Di\Container;
 use PHPNomad\Di\Interfaces\InstanceProvider;
 
 trait HasSettableContainer
@@ -10,10 +9,10 @@ trait HasSettableContainer
     protected InstanceProvider $container;
 
     /**
-     * @param Container $container
+     * @param InstanceProvider $container
      * @return $this
      */
-    public function setContainer(Container $container)
+    public function setContainer(InstanceProvider $container)
     {
         $this->container = $container;
 
