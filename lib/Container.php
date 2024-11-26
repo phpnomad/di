@@ -37,12 +37,10 @@ class Container implements InstanceProvider
         $abstracts = Arr::merge([$abstract], $abstracts);
 
         foreach ($abstracts as $abstractClass) {
-            if(!isset($this->bindings[$abstractClass])) {
-                $this->bindings[$abstractClass] = $concrete;
+            $this->bindings[$abstractClass] = $concrete;
 
-                // This ensures all bound abstracts will return the same instance
-                $this->instances[$abstractClass] = &$instance;
-            }
+            // This ensures all bound abstracts will return the same instance
+            $this->instances[$abstractClass] = &$instance;
         }
 
         return $this;
