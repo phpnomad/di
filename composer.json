@@ -25,10 +25,7 @@
             "email": "alex@standiford.us"
         }
     ],
-    "require": {
-        "phpnomad/utils": "^1.0"
-
-    },
+    "require": {},
     "require-dev": {
         "phpnomad/tests": "^0.1.0 || ^0.3.0"
     },
